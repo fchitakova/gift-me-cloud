@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to GiftMe</title>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d7e9d4; /* Pale green background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 5rem; /* Larger and more impressive title */
+            color: #29523a; /* Darker green text color */
+            text-align: center;
+            margin-bottom: 10px; /* Creating space between title and undertitle */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Adding shadow to the title text */
+            position: relative;
+            display: inline-block; /* Display as an inline block to adjust the heart position */
+        }
+        .heart-flower {
+            font-size: 1.5rem;
+            color: #69a775; /* Light green color for the heart and leaf */
+            margin-left: 5px; /* Creating space between title and heart-flower */
+            text-shadow: none; /* Remove shadow for heart-flower */
+        }
+        p {
+            font-size: 1.2rem; /* Font size for the undertitle */
+            line-height: 1.6;
+            color: #666;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(118, 102, 102, 0.5);
+        }
+
+        @keyframes popUpAnimation {
+            0% {
+                font-size: 5rem; /* Initial font size */
+            }
+            50% {
+                font-size: 6rem; /* Larger font size during animation */
+            }
+            100% {
+                font-size: 5rem; /* Back to initial font size */
+            }
+        }
+        .pop-up {
+            animation: popUpAnimation 1.5s ease-in-out; /* Apply the animation */
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet"> <!-- Link to Raleway font -->
+</head>
+<body>
+<h1 class="pop-up">Welcome to GiftMe<span class="heart-flower">❤️🌿</span></h1>
+<p>Your one-stop destination for thoughtful donations...</p>
+</body>
+</html>
