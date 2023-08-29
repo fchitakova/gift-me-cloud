@@ -22,9 +22,9 @@ public class HomeControllerTest {
     public void testHomePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("home"))
+                .andExpect(MockMvcResultMatchers.view().name("gifts-feed"))
                 .andExpect(MockMvcResultMatchers.content()
-                        .string(Matchers.containsString("Welcome to GiftMe")));
+                        .string(Matchers.containsString("GiftMe")));
     }
 
 }

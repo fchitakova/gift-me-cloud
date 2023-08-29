@@ -8,6 +8,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        /**
+         * TO DO: Change if statement's condition to check if the current user is authenticated ,
+         * when authentication is added.
+         *
+         */
+        if (true) {
+            return "gifts-feed";
+        }
+        return "index";
     }
 }

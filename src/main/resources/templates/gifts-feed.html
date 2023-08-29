@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftMe</title>
+    <link rel="stylesheet" th:href="@{/css/gift-feed-styles.css}" href="/css/gift-feed-styles.css">
+</head>
+<body>
+<div class="header">
+    <button class="add-gift-button" id="add-gift-button">Add Gift</button>
+</div>
+<div class="feed-container">
+    <!-- Add more gift posts here -->
+</div>
+<div class="footer">
+    <!-- Empty section for gifts loaded via model data -->
+</div>
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <h2 style="font-size: 28px; color: #007bff; text-transform: uppercase; margin-bottom: 20px; text-align: center;">Create Gift</h2>
+        <form method="POST" th:action="@{/api/v1/gifts}" id="gift-form" enctype="multipart/form-data">
+            <label for="gift-name">Name:</label>
+            <input type="text" id="gift-name" name="gift-name" required>
+
+            <label for="gift-description">Description:</label>
+            <textarea id="gift-description" name="gift-description" rows="4" required></textarea>
+
+            <label for="gift-image">Image:</label>
+            <input type="file" id="gift-image" name="gift-image" accept="image/*" required>
+
+            <button type="submit">Create</button>
+        </form>
+        <button class="close-popup" id="close-popup" style="background-color: #ff6347; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px;">✖ Close</button>
+    </div>
+</div>
+<script th:src="@{/js/gift-feed.js}" src="/js/gift-feed.js"></script>
+</body>
+</html>
