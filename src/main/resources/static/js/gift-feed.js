@@ -2,46 +2,82 @@ const addGiftButton = document.getElementById("add-gift-button");
 const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("close-popup");
 const giftForm = document.getElementById("gift-form");
+const fileInput = document.getElementById("fileInput");
+const uploadedFilesContainer = document.getElementById("uploaded-files-container");
+
 
 addGiftButton.addEventListener("click", () => {
     popup.style.display = "flex";
-    document.body.classList.add("popup-open"); // Add class to body to apply backdrop filter
-    document.body.style.overflow = "hidden"; // Prevent scrolling
+    document.body.classList.add("popup-open");
+    document.body.style.overflow = "hidden";
 });
 
 closePopupButton.addEventListener("click", () => {
-    popup.style.display = "none";
-    document.body.classList.remove("popup-open"); // Remove class to remove backdrop filter
-    document.body.style.overflow = "auto"; // Enable scrolling
-    giftForm.reset(); // Reset the form when closing the popup
-});
-
-giftForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // Prevent the form from submitting normally
-
-    // Collect form data
-    const formData = new FormData(giftForm);
-    const giftName = formData.get("gift-name");
-    const giftDescription = formData.get("gift-description");
-    const giftImage = formData.get("gift-image");
-
-    // You can now process the form data as needed, for example, send it to a server using fetch()
-
-    // Close the popup after processing
     popup.style.display = "none";
     document.body.classList.remove("popup-open");
     document.body.style.overflow = "auto";
     giftForm.reset();
 });
 
-const fileInput = document.getElementById('gift-images');
+fileInput.addEventListener("change", () => {
+    const files = fileInput.files;
 
-// Add an event listener to check the number of selected files
-fileInput.addEventListener('change', function () {
-    const selectedFiles = this.files;
-    if (selectedFiles.length < 3) {
-        alert('Please select at least three images.');
-        // Reset the file input to clear invalid selections
-        this.value = '';
+    for (const file of files) {
+        const fileItem = document.createElement("div");
+        const fileName = file.name;
+
+        // Create a new file item with a delete button
+        fileItem.innerHTML = `
+            <span>${fileName}</span>
+            <button class="delete-file" data-file-name="${fileName}">X</button>
+        `;
+
+        uploadedFilesContainer.appendChild(fileItem);
+
+        const deleteButton = fileItem.querySelector(".delete-file");
+        deleteButton.addEventListener("click", () => {
+            uploadedFilesContainer.removeChild(fileItem);
+            const index = Array.from(fileInput.files).findIndex((f) => f.name === fileName);
+            if (index !== -1) {
+                fileInput.files.splice(index, 1);
+            }
+        });
     }
 });
+
+giftForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(giftForm);
+
+    try {
+        const response = await fetch('/api/v1/gifts', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            console.log('Gift created successfully');
+            clearUploadedFiles();
+            closePopup();
+        } else {
+            console.error('Failed to create gift');
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+});
+
+function clearUploadedFiles() {
+    while (uploadedFilesContainer.firstChild) {
+        uploadedFilesContainer.removeChild(uploadedFilesContainer.firstChild);
+    }
+    fileInput.value = "";
+}
+
+function closePopup() {
+    popup.style.display = "none";
+    document.body.classList.remove("popup-open");
+    document.body.style.overflow = "auto";
+    giftForm.reset();
+}
