@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #d7e9d4; /* Pale green background */
+    font-family: 'Arial', sans-serif;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 50vh; /* Adjust the height of the header */
+}
+.add-gift-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #69a775;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.add-gift-button:hover {
+    background-color: #568a5a;
+    transform: scale(1.05);
+}
+.feed-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.gift {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.footer {
+    text-align: center;
+    padding: 20px;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(215, 233, 212, 0.8); /* Lighter green color with opacity */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.popup-content {
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust opacity here */
+    border-radius: 10px;
+    padding: 5%; /* Set padding as a percentage of the viewport width */
+    max-width: 80%; /* Set the maximum width as a percentage of the viewport width */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: popUpAnimation 1.5s 1; /* Apply the animation once */
+}
+/* Add backdrop filter to blur the background when popup is open */
+.popup-open body {
+    backdrop-filter: blur(5px);
+}
+
+@keyframes popUpAnimation {
+    0% {
+        transform: scale(1); /* Initial size */
+    }
+    50% {
+        transform: scale(1.2); /* Larger size during animation */
+    }
+    100% {
+        transform: scale(1); /* Back to initial size */
+    }
+}
+
+/* Add backdrop filter to blur the background when popup is open */
+.popup-open body {
+    backdrop-filter: blur(5px);
+}
+#gift-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style input fields */
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Style the form when it's focused */
+input[type="text"]:focus,
+textarea:focus,
+input[type="file"]:focus {
+    border: 2px solid #4CAF50;
+}
+
+/* Style the form on validation error */
+input:invalid,
+textarea:invalid {
+    border: 2px solid #ff6b6b;
+}
+
+/* Style the error message for required fields */
+input:invalid + span::before,
+textarea:invalid + span::before {
+    content: 'Required field';
+    display: block;
+    font-size: 12px;
+    color: #ff6b6b;
+    margin-top: 5px;
+}
+
+/* Style the error message for file input */
+input[type="file"]:invalid + span::before {
+    content: 'Please select a valid image file';
+}
+
+/* Style the error message for file input on file type validation */
+input[type="file"]:invalid:required + span::before {
+    content: 'Please select an image file';
+}
+
+/* Style the error message for file input on max size validation */
+input[type="file"]:invalid:out-of-range + span::before {
+    content: 'File size too large';
+}
