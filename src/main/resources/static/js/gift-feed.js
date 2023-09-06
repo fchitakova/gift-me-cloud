@@ -37,10 +37,8 @@ fileInput.addEventListener("change", () => {
         const deleteButton = fileItem.querySelector(".delete-file");
         deleteButton.addEventListener("click", () => {
             uploadedFilesContainer.removeChild(fileItem);
-            const index = Array.from(fileInput.files).findIndex((f) => f.name === fileName);
-            if (index !== -1) {
-                fileInput.files.splice(index, 1);
-            }
+            const newFiles = Array.from(fileInput.files).filter((f) => f.name !== fileName);
+            fileInput.files = new FileList({ length: newFiles.length, item: (index) => newFiles[index] });
         });
     }
 });
