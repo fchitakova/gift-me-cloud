@@ -1,6 +1,7 @@
-package com.fchitakova.giftmecloud.gift.model;
+package com.fchitakova.giftmecloud.gift.model.entity;
 
 
+import com.fchitakova.giftmecloud.gift.model.entity.Gift;
 import lombok.Data;
 
 @Data

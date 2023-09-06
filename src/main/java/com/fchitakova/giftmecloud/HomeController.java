@@ -1,19 +1,17 @@
 package com.fchitakova.giftmecloud;
 
+import com.fchitakova.giftmecloud.gift.model.dto.GiftDTO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
     @GetMapping("/")
-    public String home() {
-        /**
-         * TO DO: Change if statement's condition to check if the current user is authenticated ,
-         * when authentication is added.
-         *
-         */
+    public String home(Model model) {
         if (true) {
+            model.addAttribute("gift", new GiftDTO());
             return "gifts-feed";
         }
         return "index";
