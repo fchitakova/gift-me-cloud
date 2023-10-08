@@ -1,12 +1,13 @@
 package com.fchitakova.giftmecloud.gift.model.entity;
 
 
-import com.fchitakova.giftmecloud.gift.model.entity.Gift;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 public class GiftImage {
-    private Long imageId;
+    private UUID imageId;
 
     private String imageUrl;
 

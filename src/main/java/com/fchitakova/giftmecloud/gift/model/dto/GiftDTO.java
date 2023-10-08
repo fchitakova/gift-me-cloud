@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GiftDTO implements Serializable {
+        @NotBlank(message = "Title is required.")
+        @Size(min = 5, message = "Please choose a longer title.")
         private String title;
+
+        @NotBlank(message = "Description is required.")
+        @Size(min = 25, message = "Please choose a longer description.")
         private String description;
+
+        @NotEmpty(message = "At least 1 images of the gift are required")
         private List<MultipartFile> images;
 }
