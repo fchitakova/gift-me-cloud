@@ -23,7 +23,7 @@ public class GiftController {
 
     //TO DO: ADD @Valid annotation to GiftDTO, once the bug is fixed
     @PostMapping
-    public String createGift(@ModelAttribute("gift") GiftDTO gift) {
+    public String createGift(@ModelAttribute("gift")  @Valid GiftDTO gift) {
         try {
             for (MultipartFile file : gift.getImages()) {
                 String fileName = file.getOriginalFilename();

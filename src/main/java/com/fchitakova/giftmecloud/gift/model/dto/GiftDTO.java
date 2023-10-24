@@ -23,7 +23,6 @@ public class GiftDTO implements Serializable {
         @Size(min = 25, message = "Please choose a longer description.")
         private String description;
 
-        @NotEmpty(message = "At least 3 images of the gift are required")
-        @Size(min = 3, message = "Please upload at least 3 different photos of the gift.")
+        @NotEmpty(message = "At least 1 images of the gift are required")
         private List<MultipartFile> images;
 }
