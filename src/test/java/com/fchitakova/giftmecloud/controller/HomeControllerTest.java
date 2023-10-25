@@ -1,5 +1,6 @@
-package com.fchitakova.giftmecloud;
+package com.fchitakova.giftmecloud.controller;
 
+import com.fchitakova.giftmecloud.gift.controller.HomeController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
