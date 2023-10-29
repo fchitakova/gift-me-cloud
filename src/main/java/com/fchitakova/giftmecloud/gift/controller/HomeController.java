@@ -1,4 +1,4 @@
-package com.fchitakova.giftmecloud;
+package com.fchitakova.giftmecloud.gift.controller;
 
 import com.fchitakova.giftmecloud.gift.model.dto.GiftDTO;
 import org.springframework.stereotype.Controller;

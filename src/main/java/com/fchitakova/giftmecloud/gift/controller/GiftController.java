@@ -1,6 +1,13 @@
 package com.fchitakova.giftmecloud.gift.controller;
 
+
 import com.fchitakova.giftmecloud.gift.model.dto.GiftDTO;
+import com.fchitakova.giftmecloud.gift.model.entity.Gift;
+import com.fchitakova.giftmecloud.gift.model.entity.GiftImage;
+import com.fchitakova.giftmecloud.gift.model.mapper.GiftMapper;
+import com.fchitakova.giftmecloud.gift.repository.GiftRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,32 +18,44 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("api/v1/gifts")
+@RequiredArgsConstructor
 public class GiftController {
+
+    private final GiftMapper giftMapper;
+    private final GiftRepository giftRepository;
 
     @Value("${upload.directory}")
     private String uploadDirectory;
 
-    //TO DO: ADD @Valid annotation to GiftDTO, once the bug is fixed
     @PostMapping
-    public String createGift(@ModelAttribute("gift")  @Valid GiftDTO gift) {
-        try {
-            for (MultipartFile file : gift.getImages()) {
-                String fileName = file.getOriginalFilename();
-                String filePath = uploadDirectory + "/" + fileName;
-                file.transferTo(new File(filePath));
-                // You can save the file path in your GiftDTO or database for reference
-            }
-            log.info("GIFT CREATED!!!!");
-        } catch (IOException e) {
-            // Handle the exception
-            e.printStackTrace();
-        }
+    public String createGift(@ModelAttribute("gift") @Valid GiftDTO gift) {
+        Gift giftEntity = giftMapper.dtoToEntity(gift);
+        giftEntity.setImages(saveAndGetGiftImages(gift.getImages(), giftEntity));
+        Gift entity = giftRepository.save(giftEntity);
+
+        log.info("Created gift with id {}.", entity.getId().toString());
+
         return "redirect:/";
+    }
+
+    @SneakyThrows
+    private List<GiftImage> saveAndGetGiftImages(List<MultipartFile> multipartFiles, Gift gift) {
+        List<GiftImage> giftImages = new ArrayList<>();
+        for (MultipartFile file : multipartFiles) {
+            String fileName = file.getOriginalFilename();
+            String filePath = uploadDirectory + "/" + fileName;
+            file.transferTo(new File(filePath));
+
+            GiftImage giftImage = new GiftImage(filePath, gift);
+            giftImages.add(giftImage);
+        }
+        return giftImages;
     }
 
 }
